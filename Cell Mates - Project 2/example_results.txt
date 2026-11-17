@@ -1,0 +1,29 @@
+******ROCK PAPER SCISSORS******
+
+Game 1:
+ Player Choice: rock
+ Computer Choice: scissors 
+ Player won
+
+Game 2:
+ Player Choice: paper
+ Computer Choice: rock 
+ Player won
+
+Game 3:
+ Player Choice: scissors
+ Computer Choice: scissors 
+ It was a tie
+
+*******NEXT SESSION*******
+
+Game 4:
+ Player Choice: Rock
+ Computer Choice: Rock 
+ It was a Tie
+
+Game 5:
+ Player Choice: Paper
+ Computer Choice: Rock
+ Player won
+
