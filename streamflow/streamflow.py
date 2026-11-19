@@ -27,10 +27,13 @@ def load_streamflow(filename):
 
 def summarize(dates, flows, sites):
     """Print and save summary statistics for each streamflow gauge."""
+    # Copilot helped write this summary-report code for Step 5.
     rows = []
 
+    # Go gauge by gauge so each one gets its own set of stats.
     for column, site in enumerate(sites):
         gauge_flows = flows[:, column]
+        # argmax tells us which date matches that gauge's highest reading.
         max_index = int(np.argmax(gauge_flows))
         rows.append({
             "Gauge": site,
@@ -40,6 +43,7 @@ def summarize(dates, flows, sites):
             "Avg (cfs)": float(np.mean(gauge_flows)),
         })
 
+    # Print the results in columns so they're easy to scan in the terminal.
     print(f"{'Gauge':<12}{'Max (cfs)':<12}{'Date of max':<22}"
           f"{'Min (cfs)':<12}{'Avg (cfs)':<12}")
     for row in rows:
@@ -51,6 +55,7 @@ def summarize(dates, flows, sites):
             f"{row['Avg (cfs)']:>12.1f}"
         )
 
+    # Save the same results as a CSV so it can be opened in a spreadsheet.
     output_path = Path(__file__).resolve().parent / "streamflow_summary.csv"
     with output_path.open("w", newline="", encoding="utf-8") as summary_file:
         writer = csv.DictWriter(
@@ -97,12 +102,17 @@ dates, flows = load_streamflow(
     "June-2021-Provo-River-Streamflow-Rates.csv"
 )
 summarize(dates, flows, sites)
-plot_streamflow(dates, flows, sites)
 
+# Copilot helped write this threshold-hours code for Step 6.
+# Ask what flow level counts as "high" for this run.
 threshold = float(input("Enter a flow threshold in cfs: "))
 
 print("\nHours above threshold:")
 for column, site in enumerate(sites):
+    # This is True for readings above the limit and False for the rest.
     above_threshold = flows[:, column] > threshold
+    # Each reading represents 15 minutes, or one quarter of an hour.
     hours = np.sum(above_threshold) * 0.25
     print(f"Site {site}: {hours:.2f} hours")
+
+plot_streamflow(dates, flows, sites)
